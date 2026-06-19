@@ -1,0 +1,55 @@
+================================================================================
+                    GURUJAN SYSTEM ADMINISTRATION - SECURE CREDS
+================================================================================
+
+This file contains the secret entry path and default credentials for the
+Super Admin Dashboard. Copy these details to a secure password manager or physical 
+note, then delete this text file to prevent unauthorized access to your system root.
+
+--------------------------------------------------------------------------------
+1. OBFUSCATED CONSOLE ACCESS URL
+--------------------------------------------------------------------------------
+Path:
+/portal/superadmin-secure-gate-token-9b1deb4d3b7d4f968e7e1f440a3243f78923a1ef96d84a7e930f3532cb11b439-management-dashboard
+
+Full Local Link:
+http://localhost:5173/portal/superadmin-secure-gate-token-9b1deb4d3b7d4f968e7e1f440a3243f78923a1ef96d84a7e930f3532cb11b439-management-dashboard
+
+--------------------------------------------------------------------------------
+2. DEFAULT ROOT CREDENTIALS
+--------------------------------------------------------------------------------
+Email: 
+superadmin@gurujan.com
+
+Password: 
+SuperAdminSecurePassword123!
+
+*Note: The password contains:
+ - At least 1 uppercase letter
+ - At least 1 lowercase letter
+ - At least 1 number
+ - At least 1 special character (@$!%*?&)
+ - Length between 8 and 16 characters
+
+--------------------------------------------------------------------------------
+3. SHA-256 ANONYMIZATION HASH
+--------------------------------------------------------------------------------
+To hide the Super Admin's real email address from hackers who might leak the 
+database, the email is stored in the MongoDB database strictly as a SHA-256 hash.
+
+Calculated Hash in DB:
+3e3e680c6d9a5587c8a17d1a280c2583a0121e40f6c65b8d0a979289f010c16a
+
+--------------------------------------------------------------------------------
+4. HOW TO ROTATE CREDENTIALS
+--------------------------------------------------------------------------------
+- Changing Password: 
+  Log in to the console, click on the "Security Portal" tab in the left sidebar, 
+  and submit the password rotation form.
+  
+- Changing Super Admin Email:
+  1. Calculate the SHA-256 hash of your new email (lowercase & trimmed of whitespace).
+  2. Update the seed configuration inside the backend codebase (index.ts) or 
+     directly modify the MongoDB user record where `role = "superadmin"` using 
+     the new email hash.
+================================================================================

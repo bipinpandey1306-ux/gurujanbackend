@@ -1,0 +1,495 @@
+# Personal Blog & Publishing Platform
+
+## Software Requirement Document (SRD)
+
+### Project Name
+
+Personal Blog CMS
+
+### Project Owner
+
+Blog Author (Father)
+
+### Version
+
+1.0
+
+---
+
+# Project Overview
+
+एक आधुनिक Personal Blogging Platform विकसित की जानी है जहाँ वेबसाइट के Owner स्वयं अपने विचार, लेख, अनुभव, कहानियाँ, धार्मिक लेख, सामाजिक लेख, समाचार विश्लेषण तथा अन्य सामग्री प्रकाशित कर सकें।
+
+सिस्टम इतना सरल होना चाहिए कि बिना किसी Technical Knowledge के Admin आसानी से Content Manage कर सके।
+
+---
+
+# Main Objectives
+
+* ब्लॉग लिखना
+* ब्लॉग प्रकाशित करना
+* ब्लॉग एडिट करना
+* ब्लॉग डिलीट करना
+* फोटो अपलोड करना
+* गैलरी बनाना
+* Category Management
+* Date Wise Archive
+* SEO Friendly Publishing
+* Visitor Analytics
+* Mobile Friendly Interface
+
+---
+
+# User Roles
+
+## Admin
+
+संपूर्ण वेबसाइट का नियंत्रण
+
+Permissions:
+
+* Create Blog
+* Edit Blog
+* Delete Blog
+* Publish Blog
+* Save Draft
+* Manage Gallery
+* Manage Categories
+* Manage Comments
+* Manage Profile
+* View Reports
+
+---
+
+# Public Website Structure
+
+## Home Page
+
+### Hero Section
+
+* Profile Image
+* Welcome Message
+* Website Title
+* Short Introduction
+
+### Latest Blogs
+
+Display:
+
+* Blog Image
+* Blog Title
+* Publish Date
+* Short Description
+* Read More
+
+### Featured Posts
+
+Most Important Articles
+
+### Categories
+
+* Spiritual
+* Education
+* Technology
+* Society
+* Health
+* Politics
+* Custom Categories
+
+### Photo Gallery Preview
+
+Recent Images
+
+### About Author
+
+* Author Image
+* Biography
+* Experience
+* Message
+
+### Footer
+
+* Contact
+* Privacy Policy
+* Terms & Conditions
+* Sitemap
+
+---
+
+# About Author Page
+
+Display:
+
+* Large Profile Image
+* Biography
+* Achievements
+* Experience
+* Personal Story
+
+---
+
+# Blog Module
+
+## Create Blog
+
+Fields:
+
+* Blog Title
+* Blog Slug
+* Category
+* Tags
+* Featured Image
+* Blog Content
+* SEO Title
+* SEO Description
+* Publish Date
+
+Buttons:
+
+* Save Draft
+* Preview
+* Publish
+
+---
+
+# Rich Text Editor
+
+Supports:
+
+* H1-H6 Headings
+* Bold
+* Italic
+* Underline
+* Lists
+* Tables
+* Images
+* Videos
+* Links
+* Quotes
+* Code Blocks
+
+---
+
+# Blog Listing
+
+Display:
+
+* Featured Image
+* Blog Title
+* Category
+* Publish Date
+* Read More
+
+Sorting:
+
+* Latest First
+* Oldest First
+* Most Viewed
+
+---
+
+# Date Wise Archive
+
+Archive Structure:
+
+2026
+├── January
+├── February
+├── March
+
+2027
+├── January
+├── February
+
+Filters:
+
+* Day
+* Month
+* Year
+
+---
+
+# Category Management
+
+Admin Can:
+
+* Add Category
+* Edit Category
+* Delete Category
+* Reorder Categories
+
+Examples:
+
+* Spiritual
+* Education
+* Technology
+* Politics
+* Society
+
+---
+
+# Photo Gallery Module
+
+## Gallery Features
+
+Create Album
+
+Examples:
+
+* Family Photos
+* Travel Photos
+* Events
+* Festivals
+* Social Activities
+
+Actions:
+
+* Upload Photos
+* Edit Album
+* Delete Album
+
+---
+
+# Media Library
+
+Store:
+
+* Profile Photos
+* Blog Images
+* Gallery Images
+* Documents
+* Videos
+
+Features:
+
+* Search Media
+* Replace Media
+* Delete Media
+* Organize Media
+
+---
+
+# Profile Management
+
+Admin Can Update:
+
+* Name
+* Profile Photo
+* Cover Image
+* Biography
+* Contact Number
+* Email
+* Social Media Links
+
+---
+
+# Comments Module
+
+Features:
+
+* Approve Comment
+* Reject Comment
+* Delete Comment
+* Mark Spam
+
+---
+
+# Search System
+
+Users Can Search By:
+
+* Blog Title
+* Tags
+* Categories
+* Publish Date
+
+---
+
+# Analytics Dashboard
+
+Display:
+
+* Total Visitors
+* Daily Visitors
+* Monthly Visitors
+* Total Blogs
+* Most Viewed Blogs
+* Popular Categories
+
+Graphs:
+
+* Visitor Growth
+* Monthly Publishing Activity
+
+---
+
+# SEO Module
+
+Features:
+
+* Meta Title
+* Meta Description
+* Keywords
+* Open Graph Image
+* XML Sitemap
+* Robots.txt
+
+SEO Friendly URLs:
+
+example.com/blog/my-first-blog
+
+---
+
+# Contact Page
+
+Fields:
+
+* Name
+* Email
+* Subject
+* Message
+
+Admin receives message in dashboard.
+
+---
+
+# Admin Dashboard
+
+Widgets:
+
+1. Total Blogs
+2. Published Blogs
+3. Draft Blogs
+4. Total Visitors
+5. Total Images
+6. Total Comments
+
+Quick Actions:
+
+* Write New Blog
+* Upload Photo
+* Create Gallery
+* View Reports
+
+---
+
+# Security Module
+
+Features:
+
+* Secure Login
+* OTP Verification
+* Session Management
+* Activity Logs
+* CAPTCHA Protection
+* SSL Security
+
+---
+
+# Backup System
+
+Automatic:
+
+* Daily Backup
+* Weekly Backup
+
+Manual:
+
+* Download Backup
+* Restore Backup
+
+---
+
+# Mobile Responsive Design
+
+Compatible Devices:
+
+* Mobile
+* Tablet
+* Laptop
+* Desktop
+
+---
+
+# Performance Requirements
+
+Page Load Time:
+
+Less than 2 Seconds
+
+Google Lighthouse Score:
+
+90+
+
+SEO Score:
+
+90+
+
+---
+
+# Technology Stack
+
+Frontend:
+
+* Next.js
+* React
+
+Backend:
+
+* Node.js
+* Express.js
+
+Database:
+
+* PostgreSQL
+
+Storage:
+
+* Cloud Storage
+
+Authentication:
+
+* JWT + OTP
+
+Hosting:
+
+* VPS Server
+
+---
+
+# Future Enhancements
+
+Phase 2:
+
+* AI Blog Writer
+* AI SEO Suggestions
+* Newsletter System
+* WhatsApp Share
+* Multiple Authors
+* Dark Mode
+
+---
+
+# Admin Workflow
+
+Login
+↓
+Dashboard
+↓
+Create Blog
+↓
+Upload Images
+↓
+Preview
+↓
+Publish
+↓
+Track Visitors
+↓
+Edit Anytime
+↓
+Delete Anytime
+
+Result:
+
+एक Professional Personal Publishing Platform जहाँ Admin बिना किसी Technical Knowledge के ब्लॉग लिख, फोटो अपलोड, गैलरी मैनेज, कंटेंट एडिट और पूरी वेबसाइट को Control Panel से संचालित कर सके।
