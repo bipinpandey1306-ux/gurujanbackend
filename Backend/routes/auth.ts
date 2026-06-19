@@ -134,12 +134,6 @@ router.post("/login", async (req: express.Request, res: Response): Promise<void>
       return;
     }
 
-    // Restrict Super Admin login to the secure gateway only
-    if (user.role === "superadmin" && !req.body.isSuperadminGate) {
-      res.status(401).json({ message: "Invalid email or password." });
-      return;
-    }
-
     // Check if user is blocked
     if (user.isBlocked) {
       res.status(403).json({ message: "Your account has been blocked by the administrator." });
