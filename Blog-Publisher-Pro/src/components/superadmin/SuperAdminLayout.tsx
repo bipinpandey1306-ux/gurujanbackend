@@ -124,10 +124,10 @@ function SuperAdminSidebar({ onClose }: { onClose?: () => void }) {
 }
 
 function SuperAdminLoginGate() {
-  const { isAuthenticated, login, error, clearError } = useAuth();
+  const { isAuthenticated, user, login, error, clearError } = useAuth();
   const [location] = useLocation();
   
-  if (isAuthenticated) {
+  if (isAuthenticated && user?.role === "superadmin") {
     return null;
   }
 
