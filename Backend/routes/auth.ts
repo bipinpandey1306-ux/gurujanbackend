@@ -7,6 +7,7 @@ import { authMiddleware, AuthenticatedRequest } from "../middleware/auth";
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || "super_secret_jwt_key_please_change_this_in_production";
+const REGISTRATION_PASSCODE = process.env.REGISTRATION_PASSCODE || "GurujanRegister2026";
 
 // Email Regex Validation
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -17,10 +18,15 @@ const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$
 // Register Route
 router.post("/register", async (req: express.Request, res: Response): Promise<void> => {
   try {
-    const { name, email, password, bio } = req.body;
+    const { name, email, password, bio, passcode } = req.body;
 
-    if (!name || !email || !password) {
-      res.status(400).json({ message: "Name, email, and password are required." });
+    if (!name || !email || !password || !passcode) {
+      res.status(400).json({ message: "Name, email, password, and registration passcode are required." });
+      return;
+    }
+
+    if (passcode !== REGISTRATION_PASSCODE) {
+      res.status(400).json({ message: "Invalid registration passcode. Registration denied." });
       return;
     }
 

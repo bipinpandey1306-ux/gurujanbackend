@@ -9,13 +9,14 @@ interface AuthState {
   isAuthenticated: boolean;
   error: string | null;
   login: (email?: string, password?: string, isSuperadminGate?: boolean) => Promise<void>;
-  register: (name: string, email: string, password: string, bio: string) => Promise<boolean>;
+  register: (name: string, email: string, password: string, bio: string, passcode: string) => Promise<boolean>;
   logout: () => Promise<void>;
   clearError: () => void;
 }
 
 const TOKEN_KEY = "blog_cms_jwt_token";
 const USER_KEY = "blog_cms_user";
+const baseUrl = import.meta.env.VITE_API_URL || "";
 
 // Helper to retrieve the token for API headers
 export function getAuthToken(): string | null {
@@ -45,7 +46,7 @@ export function useAuth(): AuthState {
       }
 
       try {
-        const res = await fetch("/api/auth/me", {
+        const res = await fetch(`${baseUrl}/api/auth/me`, {
           headers: {
             "Authorization": `Bearer ${token}`
           }
@@ -91,7 +92,7 @@ export function useAuth(): AuthState {
     }
 
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch(`${baseUrl}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, isSuperadminGate })
@@ -127,15 +128,15 @@ export function useAuth(): AuthState {
     }
   }, []);
 
-  const register = useCallback(async (name: string, email: string, password: string, bio: string): Promise<boolean> => {
+  const register = useCallback(async (name: string, email: string, password: string, bio: string, passcode: string): Promise<boolean> => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch(`${baseUrl}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, bio })
+        body: JSON.stringify({ name, email, password, bio, passcode })
       });
 
       const data = await res.json();
@@ -159,7 +160,7 @@ export function useAuth(): AuthState {
   const logout = useCallback(async () => {
     setIsLoading(true);
     try {
-      await fetch("/api/auth/logout", { method: "POST" });
+      await fetch(`${baseUrl}/api/auth/logout`, { method: "POST" });
     } catch (err) {
       console.error("Logout request error:", err);
     } finally {

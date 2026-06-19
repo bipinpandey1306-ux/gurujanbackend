@@ -178,6 +178,7 @@ function LoginGate() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
+  const [passcode, setPasscode] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
   // Email validation regex (standard + max 100 limit check)
@@ -197,6 +198,7 @@ function LoginGate() {
     setEmail("");
     setPassword("");
     setBio("");
+    setPasscode("");
     clearError();
     setSuccessMsg("");
   };
@@ -208,12 +210,13 @@ function LoginGate() {
       const isSuperadminGate = location.startsWith(SUPERADMIN_PATH);
       await login(email, password, isSuperadminGate);
     } else {
-      if (isNameValid && isEmailValid && isPasswordValid && isBioValid) {
-        const success = await register(name, email, password, bio);
+      if (isNameValid && isEmailValid && isPasswordValid && isBioValid && passcode) {
+        const success = await register(name, email, password, bio, passcode);
         if (success) {
           setName("");
           setPassword("");
           setBio("");
+          setPasscode("");
           setSuccessMsg("Registration successful! Please sign in using your credentials.");
           setMode("login");
         }
@@ -359,10 +362,25 @@ function LoginGate() {
             </div>
           )}
 
+          {mode === "register" && (
+            <div className="space-y-1.5">
+              <Label htmlFor="reg-passcode" className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Registration Passcode</Label>
+              <Input 
+                id="reg-passcode"
+                type="password" 
+                value={passcode} 
+                onChange={(e) => setPasscode(e.target.value)}
+                placeholder="Enter registration passcode" 
+                className="h-10 rounded-xl bg-background/50 text-xs border-border/50" 
+                required 
+              />
+            </div>
+          )}
+
           <Button 
             type="submit" 
             size="lg" 
-            disabled={mode === "register" && (!isNameValid || !isEmailValid || !isPasswordValid || !isBioValid)}
+            disabled={mode === "register" && (!isNameValid || !isEmailValid || !isPasswordValid || !isBioValid || !passcode)}
             className="w-full h-11 shadow-lg hover-lift rounded-xl font-semibold mt-6 shadow-primary/20"
           >
             {mode === "login" ? "Sign In" : "Register & Start Publishing"}
