@@ -55,7 +55,8 @@ import {
   Trash2,
   TrendingUp,
   Save,
-  Lock
+  Lock,
+  Search
 } from "lucide-react";
 
 // Imported from @/components/superadmin/UserReachRow
@@ -78,6 +79,10 @@ export default function SuperAdminPage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [changingPw, setChangingPw] = useState(false);
+
+  // User directory search & filter state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [userFilter, setUserFilter] = useState<"all" | "premium" | "boosted" | "blocked">("all");
 
   // Actions handlers
   const handleVerify = async (id: string, isVerified: boolean) => {
@@ -207,9 +212,22 @@ export default function SuperAdminPage() {
     }
   }, [location, setLocation]);
 
-  const handleTabChange = (value: string) => {
-    setLocation(`${SUPERADMIN_PATH}/${value}`);
-  };
+  const filteredUsers = (usersData?.users || []).filter((u: SuperadminUser) => {
+    const matchesSearch =
+      u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      u.email.toLowerCase().includes(searchQuery.toLowerCase());
+
+    if (userFilter === "premium") {
+      return matchesSearch && u.isVerified;
+    }
+    if (userFilter === "blocked") {
+      return matchesSearch && u.isBlocked;
+    }
+    if (userFilter === "boosted") {
+      return matchesSearch && ((u.reachMultiplier ?? 1) > 1 || (u.minReach ?? 0) > 0);
+    }
+    return matchesSearch;
+  });
 
   return (
     <SuperAdminLayout>
@@ -333,6 +351,56 @@ export default function SuperAdminPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-0">
+                {/* Search & Filtering Action Bar */}
+                <div className="p-4 border-b border-border/40 bg-muted/5 flex flex-col sm:flex-row gap-3 items-center justify-between">
+                  <div className="relative w-full sm:w-72">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                    <Input
+                      placeholder="Search by name or email..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-9 h-9 rounded-xl bg-background/50 text-xs w-full"
+                    />
+                  </div>
+                  <div className="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
+                    <Button
+                      variant={userFilter === "all" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setUserFilter("all")}
+                      className="h-8 text-xs font-semibold rounded-lg px-3"
+                    >
+                      All Users
+                    </Button>
+                    <Button
+                      variant={userFilter === "premium" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setUserFilter("premium")}
+                      className="h-8 text-xs font-semibold rounded-lg px-3 gap-1.5"
+                    >
+                      <BadgeCheck size={13} className={userFilter === "premium" ? "text-primary-foreground fill-primary-foreground/10" : "text-blue-500 fill-blue-500/10"} />
+                      Premium Users
+                    </Button>
+                    <Button
+                      variant={userFilter === "boosted" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setUserFilter("boosted")}
+                      className="h-8 text-xs font-semibold rounded-lg px-3 gap-1.5"
+                    >
+                      <TrendingUp size={13} />
+                      Boosted
+                    </Button>
+                    <Button
+                      variant={userFilter === "blocked" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setUserFilter("blocked")}
+                      className="h-8 text-xs font-semibold rounded-lg px-3 gap-1.5"
+                    >
+                      <UserX size={13} />
+                      Blocked
+                    </Button>
+                  </div>
+                </div>
+
                 {loadingUsers ? (
                   <div className="p-8 text-center text-sm text-muted-foreground">
                     <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
@@ -353,17 +421,25 @@ export default function SuperAdminPage() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {usersData.users.map((u) => (
-                          <UserReachRow
-                            key={u.id}
-                            user={u}
-                            currentUser={currentUser}
-                            onVerify={handleVerify}
-                            onBlock={handleBlock}
-                            onDelete={handleDelete}
-                            onSaveReach={handleSaveReach}
-                          />
-                        ))}
+                        {filteredUsers.length > 0 ? (
+                          filteredUsers.map((u) => (
+                            <UserReachRow
+                              key={u.id}
+                              user={u}
+                              currentUser={currentUser}
+                              onVerify={handleVerify}
+                              onBlock={handleBlock}
+                              onDelete={handleDelete}
+                              onSaveReach={handleSaveReach}
+                            />
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={7} className="text-center py-12 text-sm text-muted-foreground">
+                              No users match the search criteria.
+                            </TableCell>
+                          </TableRow>
+                        )}
                       </TableBody>
                     </Table>
                   </div>
