@@ -18,8 +18,8 @@ export default function AboutPage() {
       <div className="max-w-5xl mx-auto px-4 py-14">
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6 shadow-sm border border-primary/10">
-            <span className="text-primary font-serif font-bold text-2xl">GJ</span>
+          <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6">
+            <img src="/logo.png" className="w-full h-full object-contain" alt="Gurujan Logo" />
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-bold text-foreground mb-4 text-gradient">
             About Gurujan
