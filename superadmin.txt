@@ -23,6 +23,7 @@ superadmin@gurujan.com
 
 Password: 
 SuperAdminSecurePassword123!
+REGISTRATION_PASSCODE
 
 *Note: The password contains:
  - At least 1 uppercase letter

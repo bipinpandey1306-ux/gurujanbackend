@@ -15,6 +15,7 @@ import Media from "./models/Media";
 
 
 // Load environment variables
+// Triggering fresh rebuild for Render database connection
 dotenv.config();
 
 const app = express();
